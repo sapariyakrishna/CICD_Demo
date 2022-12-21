@@ -1,0 +1,66 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# default_platform(:ios)
+
+# platform :ios do
+#   desc "Description of what the lane does"
+#   lane :custom_lane do
+#     # add actions here: https://docs.fastlane.tools/actions
+#   end
+# end
+
+
+
+default_platform(:ios)
+platform :ios do
+ desc "Push a new beta build to TestFlight"
+ lane :get_app_store_connect_api_key do
+  app_store_connect_api_key(
+    key_id: "DNL4R62ZYV", # replace it with your key id
+    issuer_id: "9389fe93-4b9b-4ba5-bff5-0470887755f9", # replace it with your issuer id
+    key_filepath: "fastlane/AuthKey_DNL4R62ZYV.p8", # replace it with your auth key name
+    in_house: false,
+  )
+end
+
+lane :beta do
+  #Build the ios app
+sigh(api_key: get_app_store_connect_api_key)
+  ipa = gym(
+    scheme: "splashScreenDemo", #replace it with your workspace name
+    workspace: "splashScreenDemo.xcworkspace",  #replace it with your workspace name
+    export_method: "app-store",
+    output_directory: "build"
+  )
+
+  pilot(api_key: get_app_store_connect_api_key,
+     ipa: ipa,
+     app_identifier: "com.example.splashScreenDemo",
+     skip_waiting_for_build_processing: true,
+     skip_submission: true,
+     distribute_external: false,
+     notify_external_testers: false
+   )
+   slack(
+    message: "New Testflight Vesrion for the App is available.",
+    success: true,
+    slack_url: "https://hooks.slack.com/services/IL8ULJ5ND/P01YR68T9K4/ufhtlRT87jQ8rPQ4XNuqrUps"
+) #replace the url with your “Slack Webhook URL” so your slack group can be notified whenever fastlane releases a build to testflight.
+end
+end
+
+
+
