@@ -12,6 +12,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Carousel from 'react-native-reanimated-carousel';
+import notifee from '@notifee/react-native';
 
 const dataArray = [
   {
@@ -157,9 +158,35 @@ const App = () => {
     });
   }, []);
 
+  const onDisplayNotification = async () => {
+    await notifee.requestPermission();
+
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'default channel',
+    });
+
+    await notifee.displayNotification({
+      title: 'notifee notification demo',
+      body: 'notification Body',
+      android: {
+        channelId,
+        pressAction: {
+          id: 'defult',
+        },
+      },
+    });
+  };
+
   return (
-    <View style={{flex: 1}}>
-      <MapView
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      <Text style={{alignSelf: 'center', fontSize: 20}}>Hello world!!!</Text>
+      <TouchableOpacity
+        style={{height: 50, width: 100, backgroundColor: 'blue'}}
+        onPress={() => {}}>
+        <Text>Display notification</Text>
+      </TouchableOpacity>
+      {/* <MapView
         coordinate={position}
         style={{flex: 1}}
         showsUserLocation={true}
@@ -188,7 +215,7 @@ const App = () => {
               </Marker>
             );
           })}
-      </MapView>
+      </MapView> */}
 
       {/* <Animated.ScrollView
         horizontal
@@ -219,8 +246,8 @@ const App = () => {
           </View>
         ))}
       </Animated.ScrollView> */}
-      <View style={{position: 'absolute', bottom: 20, marginHorizontal: 20}}>
-        {/* <Carousel
+      {/* <View style={{position: 'absolute', bottom: 20, marginHorizontal: 20}}> */}
+      {/* <Carousel
           // loop
           // width={width}
           // height={width / 2}
@@ -244,7 +271,7 @@ const App = () => {
             );
           }}
         /> */}
-        <FlatList
+      {/* <FlatList
           ref={flatListRef}
           data={dataArray}
           horizontal={true}
@@ -271,7 +298,7 @@ const App = () => {
             );
           }}
         />
-      </View>
+      </View> */}
     </View>
 
     /* <View
