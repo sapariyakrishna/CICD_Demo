@@ -185,6 +185,7 @@ const App = () => {
         style={{height: 50, width: 100, backgroundColor: 'blue'}}
         onPress={() => {}}>
         <Text>Display notification</Text>
+        <Text>DemoApp</Text>
       </TouchableOpacity>
       {/* <MapView
         coordinate={position}
