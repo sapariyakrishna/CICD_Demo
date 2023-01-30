@@ -6,7 +6,7 @@
 #     https://docs.fastlane.tools/advanced/#appfile
 
 
-app_identifier("com.example.splashScreenDemo") # The bundle identifier of your app
+app_identifier("com.restock.seller") # The bundle identifier of your app
 apple_id("bipinsakariya74@gmail.com") # Your Apple email address
  
 itc_team_id("7639N3C25S") # App Store Connect Team ID

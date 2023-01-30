@@ -48,7 +48,7 @@ sigh(api_key: get_app_store_connect_api_key)
 
   pilot(api_key: get_app_store_connect_api_key,
      ipa: ipa,
-     app_identifier: "com.example.splashScreenDemo",
+     app_identifier: "com.restock.seller",
      skip_waiting_for_build_processing: true,
      skip_submission: true,
      distribute_external: false,
