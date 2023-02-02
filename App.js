@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
 import Carousel from 'react-native-reanimated-carousel';
 import notifee from '@notifee/react-native';
 
@@ -147,15 +146,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(pos => {
-      const crd = pos.coords;
-      setPosition({
-        latitude: crd.latitude,
-        longitude: crd.longitude,
-        latitudeDelta: 0.09,
-        longitudeDelta: 0.04,
-      });
-    });
+    // Geolocation.getCurrentPosition(pos => {
+    //   const crd = pos.coords;
+    //   setPosition({
+    //     latitude: crd.latitude,
+    //     longitude: crd.longitude,
+    //     latitudeDelta: 0.09,
+    //     longitudeDelta: 0.04,
+    //   });
+    // });
   }, []);
 
   const onDisplayNotification = async () => {
